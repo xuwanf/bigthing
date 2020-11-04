@@ -20,7 +20,7 @@ function getUserMessage() {
                 return layui.layer.msg(res.message)
             }
             renderAvatar(res.data);
-            console.log(res.data);
+            // console.log(res.data);
         }
         
     })
