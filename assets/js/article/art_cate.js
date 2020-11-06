@@ -64,7 +64,7 @@ $(function () {
                 // console.log(res);
                 //利用layui快速给表单渲染数据
                 form.val('form-edit', res.data);
-                
+
             }
         })
     });
@@ -87,19 +87,24 @@ $(function () {
         })
     });
     //删除分类  为删除按钮添加点击事件
-    $('body').on('click', '.btn-delete', function () {
+    $('tbody').on('click', '.btn-delete', function () {
         var id = $(this).attr('data-id');
-        $.ajax({
-            method: 'GET',
-            url: "/my/article/deletecate/" + id,
-            success: function (res) {
-                if (res.status != 0) {
-                    console.log(res);
-                    return layer.msg('删除该分类失败')
+        //layui弹出层
+        layer.confirm('确认删除?', { icon: 3, title: '提示' }, function (index) {
+            //do something
+            $.ajax({
+                method: 'GET',
+                url: "/my/article/deletecate/" + id,
+                success: function (res) {
+                    if (res.status != 0) {
+                        console.log(res);
+                        return layer.msg('删除该分类失败')
+                    }
+                    initArtCateList();
+                    layer.msg('删除该分类成功！')
                 }
-                initArtCateList();
-                layer.msg('删除该分类成功！')
-            }
-        })
+            });
+            layer.close(index);
+        });
     });
 })
